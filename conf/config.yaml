@@ -1,0 +1,57 @@
+########################################################################################################################
+#                                                  框架结构配置                                                          #
+#                                                                                                                      #
+# 高级服务架构：                                                                                                         #
+#  入门级                                                                                                               #
+#                         root    --编码转换                                                                            #
+#        ┌─────────┬────────┼─────────┐                                                                                #
+#     transfer   static    api    ssoclient                                                                            #
+#                         ┌─┼─┐                                                                                        #
+#                                                                                                                      #
+#                                                                                                                      #
+#  webapp                                                                                                              #
+#                        root    --编码转换                                                                             #
+#                 ┌────────┴───────┐                                                                                   #
+#              manage           service    --服务开关                                                                   #
+#               ┌─────────┬────────┼───────┐                                                                           #
+#             static  ssoclient transfer  api --sso验证                                                                 #
+#                                        ┌─┼─┐                                                                         #
+#                                                                                                                      #
+#  完整版                                                                                                               #
+#                        root    --编码转换                                                                             #
+#         ┌────────────────┴───────┐                                                                                   #
+#     keepalive --aws signV4    service    --服务开关                                                                   #
+#         |     ┌─────────┬────────┼────────┬──────┐                                                                   #
+#      manage static  ssoclient transfer ssoapi awsapi     ssoapi --sso过滤器   awsapi --aws signV4                     #
+#                                         ┌─┼─┐  ┌─┼─┐                                                                 #
+#                                                                                                                      #
+########################################################################################################################
+#root:
+types: Package
+name: root
+url:
+wormes:
+branches:
+  -
+    name: 服务
+    url: service/
+    wormes:
+#      -
+#        name: 用户验证过滤器
+#        path: ssofilter
+    leaves:
+      -
+        name: helloworld
+        url: hello
+        path: Hello
+leaves:
+  -
+    name: 静态资源
+    url: web/
+    path: static
+    handle: "StaticWeb"
+  -
+    name: 网站图标
+    url: favicon.ico
+    path: static/resources/man.ico
+    handle: "StaticWeb"

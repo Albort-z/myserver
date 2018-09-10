@@ -1,0 +1,11 @@
+# Server提供监听端口和加载插件的功能
+# 数据库使用插件的方式使用
+# 管理模块
+
+server: 127.0.0.1
+port: 8080
+unix_socket:
+tls_enable: true
+domain:
+mail:
+logfile:
